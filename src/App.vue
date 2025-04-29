@@ -1,12 +1,12 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <Home />
+  <router-view />
 </template>
 
 <script>
-import Home from './views/home/Home'
+// import Login from './views/login/Login.vue'
 export default {
-  name: 'App',
-  components: { Home }
+  name: 'App'
+  // components: { Login }
 }
 </script>
