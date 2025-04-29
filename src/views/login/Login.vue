@@ -2,10 +2,10 @@
     <div class="wrapper">
         <img class="wrapper__img" src="http://www.dell-lee.com/imgs/vue3/user.png"/>
         <div class="wrapper__input">
-            <input class="wrapper__input__content" placeholder="phont num"/>
+            <input class="wrapper__input__content" placeholder="phont num" v-model="data.username"/>
         </div>
         <div class="wrapper__input">
-            <input class="wrapper__input__content" placeholder="password" type="password"/>
+            <input class="wrapper__input__content" placeholder="password" type="password"  v-model="data.password"/>
         </div>
         <div class="wrapper__login-button" @click="handleLogin">登录</div>
         <div class="wrapper__login-link">立即注册</div>
@@ -14,16 +14,31 @@
 
 <script>
 import { useRouter } from 'vue-router'
+import axios from 'axios'
+import { reactive } from 'vue'
+// axios.defaults.headers.post['Content-Type'] = 'application/json'
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Login',
   setup () {
     const router = useRouter()
+    const data = reactive({
+      username: '',
+      password: ''
+    })
     const handleLogin = () => {
-      localStorage.isLogin = true
-      router.push({ name: 'home' })
+      axios.post('http://127.0.0.1:4523/m1/6319140-6014427-default/api/user/login', {
+        username: data.username,
+        password: data.password
+      }).then(() => {
+        // alert('success')
+        localStorage.isLogin = true
+        router.push({ name: 'home' })
+      }).catch(() => {
+        alert('login fail')
+      })
     }
-    return { handleLogin }
+    return { handleLogin, data }
   }
 }
 </script>
