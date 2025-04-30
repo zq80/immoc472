@@ -4,19 +4,20 @@
     <div
       class="nearby__item"
       v-for="item in nearbyList"
-      :key="item.id"
+      :key="item._id"
       >
       <img
         :src="item.imgUrl"
         class="nearby__item__img"
       />
       <div class="nearby__content">
-        <div class="nearby__content__title">{{item.title}}</div>
+        <div class="nearby__content__title">{{item.name}}</div>
         <div class="nearby_content_tags">
-          <span class="nearby__content__tag"></span>
-          <span class="nearby__content__tag" v-for="(innerItem,innerIndex) in item.tags" :key="innerIndex">{{innerItem}}</span>
+          <span class="nearby__content__tag">月售：{{item.sales}}</span>
+          <span class="nearby__content__tag">起送：{{item.expressLimit}}</span>
+          <span class="nearby__content__tag">基础运费：{{item.expressPrice}}</span>
         </div>
-        <p class="nearby__content__highlight">{{item.desc}}</p>
+        <p class="nearby__content__highlight">{{item.slogan}}</p>
       </div>
     </div>
 
@@ -24,22 +25,27 @@
 </template>
 
 <script>
+import { ref } from 'vue'
+import { get } from '../../utils/request'
+
+const useNearbyListEffect = () => {
+  const nearbyList = ref([])
+  const getNearbyList = async () => {
+    const result = await get('/api/shop/hot-list')
+    console.log(result)
+    console.log(result.data)
+    if (result?.errno === 0 && result?.data?.length > 0) {
+      nearbyList.value = result.data
+    }
+  }
+  return { nearbyList, getNearbyList }
+}
+
 export default {
   name: 'NearBy',
   setup () {
-    const nearbyList = [{
-      id: 1,
-      imgUrl: 'http://www.dell-lee.com/imgs/vue3/near.png',
-      title: '沃尔玛',
-      tags: ['111', '222', '333'],
-      desc: 'vip'
-    }, {
-      id: 2,
-      imgUrl: 'http://www.dell-lee.com/imgs/vue3/near.png',
-      title: '沃尔玛1',
-      tags: ['111-2', '222-2', '333-2'],
-      desc: 'vip1'
-    }]
+    const { nearbyList, getNearbyList } = useNearbyListEffect()
+    getNearbyList()
     return { nearbyList }
   }
 }
