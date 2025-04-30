@@ -14,7 +14,7 @@
 
 <script>
 import { useRouter } from 'vue-router'
-import axios from 'axios'
+import { post } from '../../utils/request'
 import { reactive } from 'vue'
 // axios.defaults.headers.post['Content-Type'] = 'application/json'
 export default {
@@ -26,17 +26,28 @@ export default {
       username: '',
       password: ''
     })
-    const handleLogin = () => {
-      axios.post('http://127.0.0.1:4523/m1/6319140-6014427-default/api/user/login', {
-        username: data.username,
-        password: data.password
-      }).then(() => {
-        // alert('success')
-        localStorage.isLogin = true
-        router.push({ name: 'home' })
-      }).catch(() => {
-        alert('login fail')
-      })
+    const handleLogin = async () => {
+      try {
+        const result = await post('/api/user/login', {
+          username: data.username,
+          password: data.password
+        })
+        if (result?.errno === 0) {
+          localStorage.isLogin = true
+          router.push({ name: 'home' })
+        } else {
+          alert('login fail')
+        }
+      } catch (e) {
+        alert('request fail')
+      }
+      // .then(() => {
+      //   // alert('success')
+      //   localStorage.isLogin = true
+      //   router.push({ name: 'home' })
+      // }).catch(() => {
+      //   alert('login fail')
+      // })
     }
     return { handleLogin, data }
   }
