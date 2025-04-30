@@ -1,26 +1,7 @@
 <template>
   <div class="nearby">
     <h3 class="nearby__title">附近店铺</h3>
-    <shop-info v-for="item in nearbyList" :key="item._id" :item="item"/>
-    <!-- <div
-      class="nearby__item"
-      v-for="item in nearbyList"
-      :key="item._id"
-      >
-      <img
-        :src="item.imgUrl"
-        class="nearby__item__img"
-      />
-      <div class="nearby__content">
-        <div class="nearby__content__title">{{item.name}}</div>
-        <div class="nearby_content_tags">
-          <span class="nearby__content__tag">月售：{{item.sales}}</span>
-          <span class="nearby__content__tag">起送：{{item.expressLimit}}</span>
-          <span class="nearby__content__tag">基础运费：{{item.expressPrice}}</span>
-        </div>
-        <p class="nearby__content__highlight">{{item.slogan}}</p>
-      </div>
-    </div> -->
+    <shop-info v-for="item in nearbyList" :key="item._id" :item="item"  />
 
   </div>
 </template>
