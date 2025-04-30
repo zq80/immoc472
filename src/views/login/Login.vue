@@ -23,6 +23,11 @@ const useLoginEffect = (showToast) => {
   const router = useRouter()
   const data = reactive({ username: '', password: '' })
   const handleLogin = async () => {
+    const { username, password } = data
+    if (username === '' && password === '') {
+      showToast('username and password is null')
+      return
+    }
     try {
       const result = await post('/api/user/login', {
         username: data.username,
