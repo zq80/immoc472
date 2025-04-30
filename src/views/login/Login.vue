@@ -9,6 +9,7 @@
         </div>
         <div class="wrapper__login-button" @click="handleLogin">登录</div>
         <div class="wrapper__login-link">立即注册</div>
+        <Toast v-if="data.showToast" :message="data.toastMessage" />
     </div>
 </template>
 
@@ -16,16 +17,31 @@
 import { useRouter } from 'vue-router'
 import { post } from '../../utils/request'
 import { reactive } from 'vue'
+import Toast from '../../components/ToastComponent.vue'
+
 // axios.defaults.headers.post['Content-Type'] = 'application/json'
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Login',
+  components: { Toast },
   setup () {
     const router = useRouter()
     const data = reactive({
       username: '',
-      password: ''
+      password: '',
+      showToast: false,
+      toastMessage: ''
     })
+
+    const showToast = (message) => {
+      data.showToast = true
+      data.toastMessage = message
+      setTimeout(() => {
+        data.showToast = false
+        data.toastMessage = ''
+      }, 2000)
+    }
+
     const handleLogin = async () => {
       try {
         const result = await post('/api/user/login', {
@@ -36,18 +52,11 @@ export default {
           localStorage.isLogin = true
           router.push({ name: 'home' })
         } else {
-          alert('login fail')
+          showToast('login fail')
         }
       } catch (e) {
-        alert('request fail')
+        showToast('request fail')
       }
-      // .then(() => {
-      //   // alert('success')
-      //   localStorage.isLogin = true
-      //   router.push({ name: 'home' })
-      // }).catch(() => {
-      //   alert('login fail')
-      // })
     }
     return { handleLogin, data }
   }
