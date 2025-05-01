@@ -1,10 +1,10 @@
 <template>
  <div class="wrapper">
   <div class="search">
-    <div class="search__back iconfont">&#xe6db;</div>
+    <div class="search__back iconfont" @click="handleBackClick">&#xe6db;</div>
     <div class="search__content">
-      <span class="search__content__icon" ></span>
-      <input class="search__content__input"/>
+      <span class="search__content__icon iconfont" >&#xe6b9;</span>
+      <input class="search__content__input" placeholder="enter search item name"/>
     </div>
   </div>
  <shop-info :item="item" :hideBorder="true" />
@@ -12,11 +12,13 @@
 </template>
 
 <script>
+import { useRouter } from 'vue-router'
 import ShopInfo from '../../components/ShopInfo.vue'
 export default {
   name: 'MyShop',
   components: { ShopInfo },
   setup () {
+    const router = useRouter()
     const item = {
       id: '23',
       name: '堂梓妍',
@@ -26,7 +28,10 @@ export default {
       expressPrice: 749,
       slogan: 'tempor Duis in mollit'
     }
-    return { item }
+    const handleBackClick = () => {
+      router.back()
+    }
+    return { item, handleBackClick }
   }
 }
 </script>
@@ -49,13 +54,13 @@ export default {
   &__content{
     display: flex;
     flex: 1;
-    // line-height: .32rem;
+    line-height: .32rem;
     background: #f4f5f5;
     border-radius: .16rem;
     &__icon{
       width: .44rem;
-      height: .32rem;
-      background: blue;
+      text-align: center;
+      color: #b7b7b7;
     }
     &__input{
       display: block;
@@ -65,6 +70,9 @@ export default {
       outline: none;
       background: none;
       height: .32rem;
+      &::placeholder{
+        color: #333;
+      }
     }
   }
 }
