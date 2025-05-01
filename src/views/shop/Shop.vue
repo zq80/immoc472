@@ -7,31 +7,36 @@
       <input class="search__content__input" placeholder="enter search item name"/>
     </div>
   </div>
- <shop-info :item="item" :hideBorder="true" />
+ <shop-info :item="data.item" :hideBorder="true" />
  </div>
 </template>
 
 <script>
+import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
+import { get } from '../../utils/request'
 import ShopInfo from '../../components/ShopInfo.vue'
 export default {
   name: 'MyShop',
   components: { ShopInfo },
   setup () {
     const router = useRouter()
-    const item = {
-      id: '23',
-      name: '堂梓妍',
-      imgUrl: 'http://www.dell-lee.com/imgs/vue3/near.png',
-      sales: 50,
-      expressLimit: 29,
-      expressPrice: 749,
-      slogan: 'tempor Duis in mollit'
+    const data = reactive({
+      item: {}
+    })
+    const getItemData = async () => {
+      const result = await get('/api/shop/1')
+      if (result.errno === 0 && result?.data) {
+        data.item = result.data
+      }
+      console.log(result)
     }
+
+    getItemData()
     const handleBackClick = () => {
       router.back()
     }
-    return { item, handleBackClick }
+    return { data, handleBackClick }
   }
 }
 </script>
