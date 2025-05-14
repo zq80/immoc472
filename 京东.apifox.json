@@ -1,0 +1,699 @@
+{
+  "apifoxProject": "1.0.0",
+  "$schema": {
+    "app": "apifox",
+    "type": "project",
+    "version": "1.2.0"
+  },
+  "info": {
+    "name": "京东",
+    "description": "",
+    "mockRule": {
+      "rules": [],
+      "enableSystemRule": true
+    }
+  },
+  "apiCollection": [
+    {
+      "name": "根目录",
+      "id": 55839979,
+      "auth": {},
+      "securityScheme": {},
+      "parentId": 0,
+      "serverId": "",
+      "description": "",
+      "identityPattern": {
+        "httpApi": {
+          "type": "methodAndPath",
+          "bodyType": "",
+          "fields": []
+        }
+      },
+      "shareSettings": {},
+      "visibility": "SHARED",
+      "preProcessors": [
+        {
+          "id": "inheritProcessors",
+          "type": "inheritProcessors",
+          "data": {}
+        }
+      ],
+      "postProcessors": [
+        {
+          "id": "inheritProcessors",
+          "type": "inheritProcessors",
+          "data": {}
+        }
+      ],
+      "inheritPostProcessors": {},
+      "inheritPreProcessors": {},
+      "items": [
+        {
+          "name": "vue3",
+          "api": {
+            "id": "291135922",
+            "method": "post",
+            "path": "/api/user/login",
+            "parameters": {},
+            "auth": {},
+            "securityScheme": {},
+            "commonParameters": {
+              "query": [],
+              "body": [],
+              "cookie": [],
+              "header": []
+            },
+            "responses": [
+              {
+                "id": "667407749",
+                "code": 200,
+                "name": "成功",
+                "headers": [],
+                "jsonSchema": {
+                  "type": "object",
+                  "properties": {
+                    "errno": {
+                      "type": "integer",
+                      "const": 0
+                    },
+                    "message": {
+                      "type": "string",
+                      "const": "没有错误"
+                    },
+                    "isuser": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "errno",
+                    "message",
+                    "isuser"
+                  ],
+                  "x-apifox-orders": [
+                    "errno",
+                    "message",
+                    "isuser"
+                  ]
+                },
+                "description": "",
+                "contentType": "json",
+                "mediaType": "",
+                "oasExtensions": ""
+              }
+            ],
+            "responseExamples": [],
+            "requestBody": {
+              "type": "none",
+              "parameters": [],
+              "mediaType": "",
+              "examples": [],
+              "oasExtensions": ""
+            },
+            "description": "",
+            "tags": [],
+            "status": "developing",
+            "serverId": "",
+            "operationId": "",
+            "sourceUrl": "",
+            "ordering": 10,
+            "cases": [],
+            "mocks": [
+              {
+                "name": "参数正确",
+                "conditions": [
+                  {
+                    "location": "body",
+                    "name": "username",
+                    "value": "user",
+                    "comparison": "equal"
+                  },
+                  {
+                    "location": "body",
+                    "name": "password",
+                    "value": "pass",
+                    "comparison": "equal"
+                  }
+                ],
+                "ipCondition": {},
+                "response": {
+                  "code": 200,
+                  "delay": 0,
+                  "headers": [],
+                  "bodyType": "json",
+                  "bodyData": "{\n    \"errno\": 0,\n    \"message\": \"没有错误\",\n    \"isuser\": \"参数正确\"\n}"
+                }
+              },
+              {
+                "name": "登录失败",
+                "conditions": [
+                  {
+                    "location": "body",
+                    "name": "username",
+                    "value": "1",
+                    "comparison": "equal"
+                  }
+                ],
+                "ipCondition": {},
+                "response": {
+                  "code": 200,
+                  "delay": 0,
+                  "headers": [],
+                  "bodyType": "json",
+                  "bodyData": "{\n    \"errno\": 1,\n    \"message\": \"用户名错误\",\n    \"isuser\": \"参数正确\"\n}"
+                }
+              }
+            ],
+            "customApiFields": "{}",
+            "advancedSettings": {
+              "disabledSystemHeaders": {}
+            },
+            "mockScript": {
+              "enable": false
+            },
+            "codeSamples": [],
+            "commonResponseStatus": {},
+            "responseChildren": [
+              "BLANK.667407749"
+            ],
+            "visibility": "INHERITED",
+            "oasExtensions": "",
+            "preProcessors": [],
+            "postProcessors": [],
+            "inheritPostProcessors": {},
+            "inheritPreProcessors": {}
+          }
+        },
+        {
+          "name": "用户信息",
+          "api": {
+            "id": "291136479",
+            "method": "get",
+            "path": "/user/{id}",
+            "parameters": {
+              "path": [
+                {
+                  "id": "id#0",
+                  "name": "id",
+                  "required": true,
+                  "description": "",
+                  "type": "string",
+                  "enable": true
+                }
+              ]
+            },
+            "auth": {},
+            "securityScheme": {},
+            "commonParameters": {
+              "query": [],
+              "body": [],
+              "cookie": [],
+              "header": []
+            },
+            "responses": [
+              {
+                "id": "667414741",
+                "code": 200,
+                "name": "成功",
+                "headers": [],
+                "jsonSchema": {
+                  "type": "object",
+                  "properties": {
+                    "username": {
+                      "type": "string"
+                    },
+                    "phone": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "age": {
+                      "type": "integer"
+                    },
+                    "location": {
+                      "type": "object",
+                      "properties": {
+                        "province": {
+                          "type": "string"
+                        },
+                        "city": {
+                          "type": "string"
+                        },
+                        "address": {
+                          "type": "string"
+                        }
+                      },
+                      "x-apifox-orders": [
+                        "province",
+                        "city",
+                        "address"
+                      ],
+                      "required": [
+                        "province",
+                        "city",
+                        "address"
+                      ]
+                    },
+                    "available": {
+                      "type": "string",
+                      "const": "1"
+                    }
+                  },
+                  "x-apifox-orders": [
+                    "username",
+                    "phone",
+                    "email",
+                    "age",
+                    "available",
+                    "location"
+                  ],
+                  "required": [
+                    "username",
+                    "phone",
+                    "email",
+                    "age",
+                    "location",
+                    "available"
+                  ]
+                },
+                "description": "",
+                "contentType": "json",
+                "mediaType": "",
+                "oasExtensions": ""
+              }
+            ],
+            "responseExamples": [],
+            "requestBody": {
+              "type": "none",
+              "parameters": [],
+              "mediaType": "",
+              "examples": [],
+              "oasExtensions": ""
+            },
+            "description": "",
+            "tags": [],
+            "status": "developing",
+            "serverId": "",
+            "operationId": "",
+            "sourceUrl": "",
+            "ordering": 20,
+            "cases": [],
+            "mocks": [],
+            "customApiFields": "{}",
+            "advancedSettings": {
+              "disabledSystemHeaders": {}
+            },
+            "mockScript": {},
+            "codeSamples": [],
+            "commonResponseStatus": {},
+            "responseChildren": [
+              "BLANK.667414741"
+            ],
+            "visibility": "INHERITED",
+            "oasExtensions": "",
+            "preProcessors": [],
+            "postProcessors": [],
+            "inheritPostProcessors": {},
+            "inheritPreProcessors": {}
+          }
+        },
+        {
+          "name": "热门店铺",
+          "api": {
+            "id": "291501724",
+            "method": "get",
+            "path": "/api/shop/hot-list",
+            "parameters": {},
+            "auth": {},
+            "securityScheme": {},
+            "commonParameters": {
+              "query": [],
+              "body": [],
+              "cookie": [],
+              "header": []
+            },
+            "responses": [
+              {
+                "id": "667981929",
+                "code": 200,
+                "name": "成功",
+                "headers": [],
+                "jsonSchema": {
+                  "type": "object",
+                  "properties": {
+                    "errno": {
+                      "type": "integer",
+                      "const": 0
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "type": "string"
+                          },
+                          "imgUrl": {
+                            "type": "string",
+                            "const": "http://www.dell-lee.com/imgs/vue3/near.png"
+                          },
+                          "sales": {
+                            "type": "integer"
+                          },
+                          "expressLimit": {
+                            "type": "integer"
+                          },
+                          "expressPrice": {
+                            "type": "integer"
+                          },
+                          "slogan": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "名称"
+                          }
+                        },
+                        "x-apifox-orders": [
+                          "_id",
+                          "name",
+                          "imgUrl",
+                          "sales",
+                          "expressLimit",
+                          "expressPrice",
+                          "slogan"
+                        ],
+                        "required": [
+                          "_id",
+                          "name",
+                          "imgUrl",
+                          "sales",
+                          "expressLimit",
+                          "expressPrice",
+                          "slogan"
+                        ]
+                      },
+                      "minItems": 3,
+                      "maxItems": 5
+                    },
+                    "message": {
+                      "type": "string",
+                      "const": "no err,success"
+                    }
+                  },
+                  "x-apifox-orders": [
+                    "errno",
+                    "data",
+                    "message"
+                  ],
+                  "required": [
+                    "errno",
+                    "data",
+                    "message"
+                  ]
+                },
+                "description": "",
+                "contentType": "json",
+                "mediaType": "",
+                "oasExtensions": ""
+              }
+            ],
+            "responseExamples": [],
+            "requestBody": {
+              "type": "none",
+              "parameters": [],
+              "mediaType": "",
+              "examples": [],
+              "oasExtensions": ""
+            },
+            "description": "",
+            "tags": [],
+            "status": "developing",
+            "serverId": "",
+            "operationId": "",
+            "sourceUrl": "",
+            "ordering": 30,
+            "cases": [],
+            "mocks": [],
+            "customApiFields": "{}",
+            "advancedSettings": {
+              "disabledSystemHeaders": {}
+            },
+            "mockScript": {},
+            "codeSamples": [],
+            "commonResponseStatus": {},
+            "responseChildren": [
+              "BLANK.667981929"
+            ],
+            "visibility": "INHERITED",
+            "oasExtensions": "",
+            "preProcessors": [],
+            "postProcessors": [],
+            "inheritPostProcessors": {},
+            "inheritPreProcessors": {}
+          }
+        },
+        {
+          "name": "商店详情",
+          "api": {
+            "id": "291571037",
+            "method": "get",
+            "path": "/api/shop/{id}",
+            "parameters": {
+              "path": [
+                {
+                  "id": "id#0",
+                  "name": "id",
+                  "required": true,
+                  "description": "",
+                  "type": "string",
+                  "enable": true
+                }
+              ]
+            },
+            "auth": {},
+            "securityScheme": {},
+            "commonParameters": {
+              "query": [],
+              "body": [],
+              "cookie": [],
+              "header": []
+            },
+            "responses": [
+              {
+                "id": "668095657",
+                "code": 200,
+                "name": "成功",
+                "headers": [],
+                "jsonSchema": {
+                  "type": "object",
+                  "properties": {
+                    "errno": {
+                      "type": "integer",
+                      "const": 0
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "imgUrl": {
+                          "type": "string",
+                          "const": "http://www.dell-lee.com/imgs/vue3/near.png"
+                        },
+                        "sales": {
+                          "type": "integer"
+                        },
+                        "expressLimit": {
+                          "type": "integer"
+                        },
+                        "expressPrice": {
+                          "type": "integer"
+                        },
+                        "slogan": {
+                          "type": "string"
+                        }
+                      },
+                      "x-apifox-orders": [
+                        "_id",
+                        "name",
+                        "imgUrl",
+                        "sales",
+                        "expressLimit",
+                        "expressPrice",
+                        "slogan"
+                      ],
+                      "required": [
+                        "_id",
+                        "name",
+                        "imgUrl",
+                        "sales",
+                        "expressLimit",
+                        "expressPrice",
+                        "slogan"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "const": "success"
+                    }
+                  },
+                  "x-apifox-orders": [
+                    "errno",
+                    "data",
+                    "message"
+                  ],
+                  "required": [
+                    "errno",
+                    "data",
+                    "message"
+                  ]
+                },
+                "description": "",
+                "contentType": "json",
+                "mediaType": "",
+                "oasExtensions": ""
+              }
+            ],
+            "responseExamples": [],
+            "requestBody": {
+              "type": "none",
+              "parameters": [],
+              "mediaType": "",
+              "examples": [],
+              "oasExtensions": ""
+            },
+            "description": "",
+            "tags": [],
+            "status": "developing",
+            "serverId": "",
+            "operationId": "",
+            "sourceUrl": "",
+            "ordering": 40,
+            "cases": [],
+            "mocks": [],
+            "customApiFields": "{}",
+            "advancedSettings": {
+              "disabledSystemHeaders": {}
+            },
+            "mockScript": {},
+            "codeSamples": [],
+            "commonResponseStatus": {},
+            "responseChildren": [
+              "BLANK.668095657"
+            ],
+            "visibility": "INHERITED",
+            "oasExtensions": "",
+            "preProcessors": [],
+            "postProcessors": [],
+            "inheritPostProcessors": {},
+            "inheritPreProcessors": {}
+          }
+        }
+      ]
+    }
+  ],
+  "socketCollection": [],
+  "docCollection": [],
+  "webSocketCollection": [],
+  "socketIOCollection": [],
+  "responseCollection": [
+    {
+      "_databaseId": 6586941,
+      "updatedAt": "2025-04-29T16:45:32.000Z",
+      "name": "根目录",
+      "type": "root",
+      "children": [],
+      "parentId": 0,
+      "id": 6586941,
+      "ordering": [],
+      "items": []
+    }
+  ],
+  "schemaCollection": [
+    {
+      "id": 14153551,
+      "name": "根目录",
+      "visibility": "SHARED",
+      "items": [],
+      "ordering": []
+    }
+  ],
+  "securitySchemeCollection": [
+    {
+      "id": 1015260,
+      "name": "根目录",
+      "items": [],
+      "ordering": []
+    }
+  ],
+  "requestCollection": [
+    {
+      "name": "根目录",
+      "children": [],
+      "ordering": [
+        "requestFolder.6682722"
+      ],
+      "items": []
+    }
+  ],
+  "apiTestCaseCollection": [
+    {
+      "name": "根目录",
+      "children": [],
+      "items": []
+    }
+  ],
+  "testCaseReferences": [],
+  "environments": [],
+  "commonScripts": [],
+  "databaseConnections": [],
+  "globalVariables": [],
+  "commonParameters": null,
+  "projectSetting": {
+    "id": "6349719",
+    "auth": {},
+    "securityScheme": {},
+    "servers": [
+      {
+        "id": "default",
+        "name": "默认服务"
+      }
+    ],
+    "gateway": [],
+    "language": "zh-CN",
+    "apiStatuses": [
+      "developing",
+      "testing",
+      "released",
+      "deprecated"
+    ],
+    "mockSettings": {},
+    "preProcessors": [],
+    "postProcessors": [],
+    "advancedSettings": {
+      "enableJsonc": false,
+      "enableBigint": false,
+      "responseValidate": true,
+      "enableTestScenarioSetting": false,
+      "enableYAPICompatScript": false,
+      "isDefaultUrlEncoding": 2,
+      "publishedDocUrlRules": {
+        "defaultRule": "RESOURCE_KEY_ONLY",
+        "resourceKeyStandard": "NEW"
+      }
+    },
+    "initialDisabledMockIds": [],
+    "cloudMock": {
+      "security": "free",
+      "enable": true,
+      "tokenKey": "apifoxToken"
+    }
+  },
+  "customFunctions": [],
+  "projectAssociations": []
+}

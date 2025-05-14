@@ -11,7 +11,7 @@
         <div class="product__item">
             <img class="product__item__img" src="http://www.dell-lee.com/imgs/vue3/near.png"/>
             <div class="product__item__detail">
-                <h4  class="product__item__title">tomato250g</h4>
+                <h4  class="product__item__title">tomato250gddddddddddddddddddddddddddd</h4>
                 <p  class="product__item__sales">月售10件</p>
                 <p  class="product__item__price">
                     <span  class="product__item__yen">&yen;</span>33.6
@@ -35,6 +35,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../style/viriables.scss';
+@import '../../style/mixins.scss';
 .content {
     display: flex;
     position: absolute;
@@ -47,7 +49,7 @@ export default {
 .category {
     overflow-y: scroll;
     width: .76rem;
-    background: #f5f5f5;
+    background: $search-bgColor;
     font-size: 14px;
     color: #333;
     &__item {
@@ -78,6 +80,7 @@ export default {
             line-height: .2rem;
             font-size:.14rem;
             color: #333;
+            @include ellipsis;
         }
         &__sales {
             margin: .06rem 0;
@@ -100,6 +103,9 @@ export default {
             font-size: .12rem;
             color: #999;
             text-decoration: line-through;
+        }
+        &__detail{
+            overflow: hidden;
         }
     }
     .product__number{
