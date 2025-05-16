@@ -9,6 +9,7 @@
   </div>
  <shop-info :item="item" :hideBorder="true" v-show="item.imgUrl"/>
  <shop-content/>
+ <cart/>
  </div>
 </template>
 
@@ -18,6 +19,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { get } from '../../utils/request'
 import ShopInfo from '../../components/ShopInfo.vue'
 import ShopContent from './Content.vue'
+import Cart from './Cart.vue'
 
 const useShopInfoEffect = () => {
   const route = useRoute()
@@ -42,7 +44,7 @@ const useBackRouterEffect = () => {
 
 export default {
   name: 'MyShop',
-  components: { ShopInfo, ShopContent },
+  components: { ShopInfo, ShopContent, Cart },
   setup () {
     const { item, getItemData } = useShopInfoEffect()
     getItemData()
