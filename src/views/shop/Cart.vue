@@ -2,7 +2,11 @@
 <div class="cart">
  <div class="product">
     <div class="product__header">
-
+        <div class="product__header__all" >
+            <span class="product__header__icon iconfont">&#xe616;</span>
+            全选
+        </div>
+         <div class="product__header__clear" @click="()=>cleanCartProducts(shopId)">清空购物车</div>
     </div>
     <template  v-for="item in productList" :key="item._id">
         <div class="product__item" v-if="item.count>0">
@@ -17,7 +21,7 @@
             </div>
             <div class="product__number">
                 <span  class="product__number__minus"  @click="()=>{changeCartItemInfo(shopId,item._id,item,-1)}">-</span>
-                {{item.count || 0}}
+                {{cartList?.[shopId]?.[item._id]?.count || 0}}
                 <span  class="product__number__plus" @click="()=>{changeCartItemInfo(shopId,item._id,item,1)}">+</span>
             </div>
         </div>
@@ -80,7 +84,11 @@ const useCartEffect = (shopId) => {
     store.commit('changeCartItemCheck', { shopId, productId })
   }
 
-  return { total, price, productList, changeCartItemCheck }
+  const cleanCartProducts = (shopId) => {
+    store.commit('cleanCartProducts', { shopId })
+  }
+
+  return { total, price, productList, changeCartItemCheck, cleanCartProducts }
 }
 
 export default {
@@ -88,9 +96,9 @@ export default {
   setup () {
     const route = useRoute()
     const shopId = route.params.id
-    const { total, price, productList, changeCartItemCheck } = useCartEffect(shopId)
-    const { changeCartItemInfo } = useCommonCartEffect()
-    return { total, price, productList, shopId, changeCartItemInfo, changeCartItemCheck }
+    const { total, price, productList, changeCartItemCheck, cleanCartProducts } = useCartEffect(shopId)
+    const { changeCartItemInfo, cartList } = useCommonCartEffect()
+    return { total, price, productList, shopId, changeCartItemInfo, changeCartItemCheck, cleanCartProducts, cartList }
   }
 }
 </script>
@@ -153,8 +161,16 @@ export default {
     flex: 1;
     background: white;
     &__header {
-        height: .52rem;
+        display: flex;
+        line-height: .52rem;
         border-bottom:1px #f1f1f1;
+        &__clear{
+            flex: 1;
+            text-align: right;
+        }
+        &__all{
+            width: .64rem;
+        }
     }
     &__item{
         position: relative;
