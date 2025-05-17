@@ -29,6 +29,11 @@ export default createStore({
       console.log(JSON.stringify(state.cartList))
       console.log(state.cartList?.[shopId]?.[productId]?.count)
       // console.log(shopId, productId, productInfo)
+    },
+    changeCartItemCheck (state, payload) {
+      const { shopId, productId } = payload
+      const product = state.cartList[shopId][productId]
+      product.check = !product.check
     }
   },
   actions: {

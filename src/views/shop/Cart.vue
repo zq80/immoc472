@@ -1,9 +1,12 @@
 <template>
 <div class="cart">
  <div class="product">
+    <div class="product__header">
+
+    </div>
     <template  v-for="item in productList" :key="item._id">
         <div class="product__item" v-if="item.count>0">
-            <div class="product__item__checked iconfont" v-html="item.check ? '&#xe70f;' : '&#xe616;'"></div>
+            <div class="product__item__checked iconfont" v-html="item.check ? '&#xe70f;' : '&#xe616;'" @click="() => changeCartItemCheck(shopId,item._id)"></div>
             <img class="product__item__img" :src='item.imgUrl'/>
             <div class="product__item__detail">
                 <h4  class="product__item__title">{{item.name}}</h4>
@@ -60,7 +63,9 @@ const useCartEffect = (shopId) => {
     if (productList) {
       for (const i in productList) {
         const product = productList[i]
-        count = product.count * product.price + count
+        if (product.check) {
+          count = product.count * product.price + count
+        }
       }
     }
     return count
@@ -71,7 +76,11 @@ const useCartEffect = (shopId) => {
     return productList
   })
 
-  return { total, price, productList }
+  const changeCartItemCheck = (shopId, productId) => {
+    store.commit('changeCartItemCheck', { shopId, productId })
+  }
+
+  return { total, price, productList, changeCartItemCheck }
 }
 
 export default {
@@ -79,9 +88,9 @@ export default {
   setup () {
     const route = useRoute()
     const shopId = route.params.id
-    const { total, price, productList } = useCartEffect(shopId)
+    const { total, price, productList, changeCartItemCheck } = useCartEffect(shopId)
     const { changeCartItemInfo } = useCommonCartEffect()
-    return { total, price, productList, shopId, changeCartItemInfo }
+    return { total, price, productList, shopId, changeCartItemInfo, changeCartItemCheck }
   }
 }
 </script>
@@ -143,6 +152,10 @@ export default {
     overflow-y: scroll;
     flex: 1;
     background: white;
+    &__header {
+        height: .52rem;
+        border-bottom:1px #f1f1f1;
+    }
     &__item{
         position: relative;
         display: flex;
