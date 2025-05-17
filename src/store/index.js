@@ -23,6 +23,7 @@ export default createStore({
       if (product.count < 0) {
         product.count = 0
       }
+      if (product.count > 0) { product.check = true } else { product.check = false }
       shopInfo[productId] = product
       state.cartList[shopId] = shopInfo
       console.log(JSON.stringify(state.cartList))

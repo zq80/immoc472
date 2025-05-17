@@ -3,6 +3,7 @@
  <div class="product">
     <template  v-for="item in productList" :key="item._id">
         <div class="product__item" v-if="item.count>0">
+            <div class="product__item__checked iconfont" v-html="item.check ? '&#xe70f;' : '&#xe616;'"></div>
             <img class="product__item__img" :src='item.imgUrl'/>
             <div class="product__item__detail">
                 <h4  class="product__item__title">{{item.name}}</h4>
@@ -184,6 +185,11 @@ export default {
         }
         &__detail{
             overflow: hidden;
+        }
+        &__check{
+            line-height: .5rem;
+            font-size: .2rem;
+            margin-right: .2rem;
         }
     }
     .product__number{
