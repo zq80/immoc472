@@ -36,7 +36,11 @@
     <div class="check__info">
         总计：<span class="check__info__price"> &yen;{{price}}</span>
     </div>
-    <div class="check__btn">去结算</div>
+    <div class="check__btn">
+        <router-link :to="{name:'home'}">
+        去结算
+        </router-link>
+    </div>
  </div>
 </div>
 </template>
@@ -190,6 +194,10 @@ export default {
         color: white;
         text-align: center;
         font-size: .14rem;
+        a{
+            color: white;
+            text-decoration: none;
+        }
     }
 }
 .product{
