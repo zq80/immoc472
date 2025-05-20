@@ -1,5 +1,5 @@
 <template>
-<div class="mask" v-if="showCart"></div>
+<div class="mask" v-if="showCart" @click="showCart=!showCart"></div>
 <div class="cart">
  <div class="product" v-if="showCart">
     <div class="product__header">

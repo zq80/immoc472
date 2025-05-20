@@ -593,6 +593,162 @@
             "inheritPostProcessors": {},
             "inheritPreProcessors": {}
           }
+        },
+        {
+          "name": "查询商店的商品列表all",
+          "api": {
+            "id": "295934963",
+            "method": "get",
+            "path": "/api/shop/{id}/products",
+            "parameters": {
+              "query": [
+                {
+                  "required": false,
+                  "description": "",
+                  "type": "string",
+                  "id": "QGhW5NQpAp",
+                  "enable": true,
+                  "name": "tab",
+                  "schema": {
+                    "type": "string",
+                    "const": "all"
+                  }
+                }
+              ],
+              "path": [
+                {
+                  "id": "id#0",
+                  "name": "id",
+                  "required": true,
+                  "description": "",
+                  "type": "string",
+                  "enable": true
+                }
+              ]
+            },
+            "auth": {},
+            "securityScheme": {},
+            "commonParameters": {
+              "query": [],
+              "body": [],
+              "cookie": [],
+              "header": []
+            },
+            "responses": [
+              {
+                "id": "675521406",
+                "code": 200,
+                "name": "成功",
+                "headers": [],
+                "jsonSchema": {
+                  "type": "object",
+                  "properties": {
+                    "errno": {
+                      "type": "integer",
+                      "const": 0
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "名称"
+                          },
+                          "imgUrl": {
+                            "type": "string",
+                            "const": "https://picsum.photos/200/300"
+                          },
+                          "sales": {
+                            "type": "integer"
+                          },
+                          "price": {
+                            "type": "integer"
+                          },
+                          "oldPrice": {
+                            "type": "integer"
+                          }
+                        },
+                        "x-apifox-orders": [
+                          "_id",
+                          "name",
+                          "imgUrl",
+                          "sales",
+                          "price",
+                          "oldPrice"
+                        ],
+                        "required": [
+                          "_id",
+                          "name",
+                          "imgUrl",
+                          "sales",
+                          "price",
+                          "oldPrice"
+                        ]
+                      },
+                      "minItems": 1,
+                      "maxItems": 8
+                    },
+                    "message": {
+                      "type": "string",
+                      "const": "success"
+                    }
+                  },
+                  "x-apifox-orders": [
+                    "errno",
+                    "data",
+                    "message"
+                  ],
+                  "required": [
+                    "errno",
+                    "data",
+                    "message"
+                  ]
+                },
+                "description": "",
+                "contentType": "json",
+                "mediaType": "",
+                "oasExtensions": ""
+              }
+            ],
+            "responseExamples": [],
+            "requestBody": {
+              "type": "none",
+              "parameters": [],
+              "mediaType": "",
+              "examples": [],
+              "oasExtensions": ""
+            },
+            "description": "",
+            "tags": [],
+            "status": "developing",
+            "serverId": "",
+            "operationId": "",
+            "sourceUrl": "",
+            "ordering": 50,
+            "cases": [],
+            "mocks": [],
+            "customApiFields": "{}",
+            "advancedSettings": {
+              "disabledSystemHeaders": {}
+            },
+            "mockScript": {},
+            "codeSamples": [],
+            "commonResponseStatus": {},
+            "responseChildren": [
+              "BLANK.675521406"
+            ],
+            "visibility": "INHERITED",
+            "oasExtensions": "",
+            "preProcessors": [],
+            "postProcessors": [],
+            "inheritPostProcessors": {},
+            "inheritPreProcessors": {}
+          }
         }
       ]
     }
