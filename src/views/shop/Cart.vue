@@ -1,9 +1,10 @@
 <template>
+<div class="mask" v-if="showCart"></div>
 <div class="cart">
- <div class="product">
+ <div class="product" v-if="showCart">
     <div class="product__header">
-        <div class="product__header__all" >
-            <span class="product__header__icon iconfont">&#xe616;</span>
+        <div class="product__header__all" @click="setCartItemsChecked(allChecked)">
+            <span class="product__header__icon iconfont" v-html="allChecked ? '&#xe70f;' : '&#xe616;'"></span>
             全选
         </div>
          <div class="product__header__clear" @click="()=>cleanCartProducts(shopId)">清空购物车</div>
@@ -29,7 +30,7 @@
  </div>
  <div class="check">
     <div class="check__icon">
-      <img class="check__icon__img" src="http://www.dell-lee.com/imgs/vue3/basket.png"/>
+      <img class="check__icon__img" src="http://www.dell-lee.com/imgs/vue3/basket.png" @click="showCart=!showCart" />
       <div class="check__icon__tag">{{total}}</div>
     </div>
     <div class="check__info">
@@ -41,7 +42,7 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import { useCommonCartEffect } from './commonCartEffect'
@@ -88,7 +89,31 @@ const useCartEffect = (shopId) => {
     store.commit('cleanCartProducts', { shopId })
   }
 
-  return { total, price, productList, changeCartItemCheck, cleanCartProducts }
+  const allChecked = computed(() => {
+    const productList = cartList[shopId]
+    let result = true
+    let count = 0
+    if (!productList) { result = false }
+    console.log(productList)
+    if (productList) {
+      for (const i in productList) {
+        const product = productList[i]
+        if (!product.check && product.count !== 0) {
+          result = false
+        }
+        count = count + product.count
+      }
+    }
+    console.log('count', count)
+    if (count === 0) { result = false }
+    return result
+  })
+
+  const setCartItemsChecked = (allChecked) => {
+    store.commit('setCartItemsChecked', { shopId, allChecked })
+  }
+
+  return { total, price, productList, changeCartItemCheck, cleanCartProducts, allChecked, setCartItemsChecked }
 }
 
 export default {
@@ -96,21 +121,32 @@ export default {
   setup () {
     const route = useRoute()
     const shopId = route.params.id
-    const { total, price, productList, changeCartItemCheck, cleanCartProducts } = useCartEffect(shopId)
+    const showCart = ref(false)
+    const { total, price, productList, changeCartItemCheck, cleanCartProducts, allChecked, setCartItemsChecked } = useCartEffect(shopId)
     const { changeCartItemInfo, cartList } = useCommonCartEffect()
-    return { total, price, productList, shopId, changeCartItemInfo, changeCartItemCheck, cleanCartProducts, cartList }
+    return { total, price, productList, shopId, changeCartItemInfo, changeCartItemCheck, cleanCartProducts, cartList, allChecked, setCartItemsChecked, showCart }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 @import '../../style/mixins.scss';
+.mask {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top:0;
+    background: rgba(0,0,0,.5);
+    z-index: 1;
+}
 .cart {
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
-    height: .5rem;
+    z-index: 2;
+    background: white;
 }
 .check{
     line-height: .5rem;
